@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	// "bytes"
-	// "crypto/md5"
-	// "fmt"
-	// "io"
+	"crypto/md5"
+	"io"
 	// "math/rand"
 	"net/http"
-	// "os"
 	// "strconv"
 	// "time"
 	"github.com/mux"
@@ -18,15 +18,24 @@ import (
 
 // User Entity
 type User struct {
-	ID          int    `xorm:"'id' int pk autoincr" json:"id"`
-	Username    string `xorm:"'username' text" json:"username"`
-	Password    string `xorm:"'password' text" json:"password"`
-	Email       string `xorm:"'email' text" json:"email"`
-	Apikey      string `xorm:"'api_key' text" json:"api_key"`
+	Username    string
+	Password    string
+	//Apikey      string `xorm:"'api_key' text" json:"api_key"`
 }
 
+func md5Hash(data string) string {
+	hash := md5.New()
+	io.WriteString(hash, data)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
+var admin User
+var db *sql.DB
 //main
 func main() {
+	admin.Username="admin"
+	admin.Password="admin"
+	db, _ =sql.Open("mysql", "root:1254860908@tcp(127.0.0.1:3306)/user_data?charset=utf8")
 	port:=":8080"
 	server:=NewServer()
 	server.Run(port)
@@ -67,19 +76,22 @@ func authHandler(formatter *render.Render) http.HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
+		var user User
+		
+		fmt.Println("username =",req.FormValue("username"))
+		fmt.Println("password =",req.FormValue("password"))
+		pswHash := md5Hash(req.FormValue("password"))
+		err2 := db.QueryRow("select username, password from data where username=?", req.FormValue("username")).Scan(&user.Username,&user.Password)
+		if err2 == sql.ErrNoRows {
+			w.WriteHeader(http.StatusNotFound)
+		 	return
+		}
+		if user.Password != pswHash {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		fmt.Println("Authorize successfully")
-		// user, has:=userDAO.FindBy("email", req.FormValue("email"))
-		// if !has {
-		// 	w.WriteHeader(http.StatusNotFound)
-		// 	return
-		// }
-		// pswHash := md5Hash(req.FormValue("password"))
-		// if user.Password != pswHash {
-		// 	w.WriteHeader(http.StatusBadRequest)
-		// 	return
-		// }
-		// user.Password = ""
-		// formatter.JSON(w, http.StatusOK, user)
+		formatter.JSON(w, http.StatusOK, user)
 	}
 }
 
@@ -89,30 +101,32 @@ func usersPostHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		err := req.ParseForm()
 		if err != nil {   
-			panic(err)
+			fmt.Println("POST parse form failed!")
+			return
 		}
-
+		var user User
 		username := req.FormValue("username")
-		email := req.FormValue("email")
+		password := req.FormValue("password")
 		fmt.Println("POST successfully!")
-		fmt.Println(email,username)
-		// _, hasUsername := userDAO.FindBy("username", username)
-		// _, hasEmail := userDAO.FindBy("email", email)
-		// if hasUsername || hasEmail {
-		// 	w.WriteHeader(http.StatusBadRequest)
-		// 	return
-		// }
-
-		// rndKey := generateKey()
-		// pswHash := md5Hash(req.FormValue("password"))
-		// user := entities.User{
-		// 	Username:    username,
-		// 	Password:    pswHash,
-		// 	Email:       email,
-		// 	Apikey:      rndKey}
-		// userDAO.InsertOne(&user)
-		// user.Password = ""
-		// formatter.JSON(w, http.StatusCreated, user)
+		fmt.Println(username,password)
+		err2 := db.QueryRow("select id from data where username = ?", username).Scan(&user.Username, &user.Password)
+		if (err2 != sql.ErrNoRows) {
+			w.WriteHeader(http.StatusBadRequest)
+		 	return
+		}
+		pswHash := md5Hash(req.FormValue("password"))
+		user.Username = username
+		user.Password = pswHash
+		stmt, err2 := db.Prepare("insert data set username=?, password=?")
+		if err2 != nil {
+			fmt.Println(err2)
+			panic(err2)
+			return
+		}
+		res, err := stmt.Exec(username, pswHash)
+		id, err := res.LastInsertId()
+		fmt.Println("id =",id)
+		formatter.JSON(w, http.StatusCreated, user)
 	}
 
 }
