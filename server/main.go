@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"database/sql"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	// "bytes"
 	"crypto/md5"
@@ -12,14 +12,14 @@ import (
 	// "strconv"
 	// "time"
 	"github.com/mux"
-	"github.com/render"
 	"github.com/negroni"
+	"github.com/render"
 )
 
 // User Entity
 type User struct {
-	Username    string
-	Password    string
+	Username string
+	Password string
 	//Apikey      string `xorm:"'api_key' text" json:"api_key"`
 }
 
@@ -31,19 +31,20 @@ func md5Hash(data string) string {
 
 var admin User
 var db *sql.DB
+
 //main
 func main() {
-	admin.Username="admin"
-	admin.Password="admin"
-	db, _ =sql.Open("mysql", "root:1254860908@tcp(127.0.0.1:3306)/user_data?charset=utf8")
-	port:=":8080"
-	server:=NewServer()
+	admin.Username = "admin"
+	admin.Password = "admin"
+	db, _ = sql.Open("mysql", "root:1254860908@tcp(127.0.0.1:3306)/cut_off_user?charset=utf8")
+	port := ":8080"
+	server := NewServer()
 	server.Run(port)
 	fmt.Println("Server start successfully!")
 }
 
 //server
-const Version string="/v1/"
+const Version string = "/v1/"
 
 func NewServer() *negroni.Negroni {
 	formatter := render.New(render.Options{IndentJSON: true})
@@ -61,10 +62,10 @@ func NewServer() *negroni.Negroni {
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	var url string
 	//authorize
-	url=Version + "auth"
+	url = Version + "auth"
 	mx.HandleFunc(url, authHandler(formatter)).Methods("GET")
 	//users
-	url=Version + "users"
+	url = Version + "users"
 	mx.HandleFunc(url, usersPostHandler(formatter)).Methods("POST")
 	mx.HandleFunc(url, usersGetHandler(formatter)).Methods("GET")
 }
@@ -72,19 +73,19 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 //handler
 func authHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		err:=req.ParseForm()
+		err := req.ParseForm()
 		if err != nil {
 			panic(err)
 		}
 		var user User
-		
-		fmt.Println("username =",req.FormValue("username"))
-		fmt.Println("password =",req.FormValue("password"))
+
+		fmt.Println("username =", req.FormValue("username"))
+		fmt.Println("password =", req.FormValue("password"))
 		pswHash := md5Hash(req.FormValue("password"))
-		err2 := db.QueryRow("select username, password from data where username=?", req.FormValue("username")).Scan(&user.Username,&user.Password)
+		err2 := db.QueryRow("select username, password from data where username=?", req.FormValue("username")).Scan(&user.Username, &user.Password)
 		if err2 == sql.ErrNoRows {
 			w.WriteHeader(http.StatusNotFound)
-		 	return
+			return
 		}
 		if user.Password != pswHash {
 			w.WriteHeader(http.StatusBadRequest)
@@ -95,12 +96,12 @@ func authHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-	// POST /v1/users
+// POST /v1/users
 func usersPostHandler(formatter *render.Render) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, req *http.Request) {
 		err := req.ParseForm()
-		if err != nil {   
+		if err != nil {
 			fmt.Println("POST parse form failed!")
 			return
 		}
@@ -108,11 +109,11 @@ func usersPostHandler(formatter *render.Render) http.HandlerFunc {
 		username := req.FormValue("username")
 		password := req.FormValue("password")
 		fmt.Println("POST successfully!")
-		fmt.Println(username,password)
+		fmt.Println(username, password)
 		err2 := db.QueryRow("select id from data where username = ?", username).Scan(&user.Username, &user.Password)
-		if (err2 != sql.ErrNoRows) {
+		if err2 != sql.ErrNoRows {
 			w.WriteHeader(http.StatusBadRequest)
-		 	return
+			return
 		}
 		pswHash := md5Hash(req.FormValue("password"))
 		user.Username = username
@@ -125,12 +126,13 @@ func usersPostHandler(formatter *render.Render) http.HandlerFunc {
 		}
 		res, err := stmt.Exec(username, pswHash)
 		id, err := res.LastInsertId()
-		fmt.Println("id =",id)
+		fmt.Println("id =", id)
 		formatter.JSON(w, http.StatusCreated, user)
 	}
 
 }
-	// GET /v1/users{?api_key,course_id,type}
+
+// GET /v1/users{?api_key,course_id,type}
 func usersGetHandler(formatter *render.Render) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, req *http.Request) {
