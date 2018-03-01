@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour {
-	string host_url = "http://47.91.158.181:444";
+	string host_url = "http://120.79.220.178:2222";
 	string version = "/v1";
 
 	public Text username;
