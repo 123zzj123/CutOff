@@ -35,6 +35,20 @@ public class PlayManager : MonoBehaviour {
         velocity.x = 0;
         if (Input.GetMouseButtonDown(0))
         {
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (Physics.Raycast(ray, out hit))
+			{
+				Debug.Log(hit.transform.name);
+				if (hit.transform.name.Equals ("Land")) {
+					;
+				} else {
+					return;
+				}
+				//Debug.Log(hit.transform.tag);
+			}
+
             Vector3 MousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0));
             MousePos.y = this.transform.position.y;
             MousePos.z = this.transform.position.z;
@@ -78,4 +92,24 @@ public class PlayManager : MonoBehaviour {
         }
         controller.Move(new Vector3(velocity.x, velocity.y, 0) * Time.deltaTime);
     }
+
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		if (hit.gameObject.tag == "Trap") {
+			Debug.Log ("You die!");
+			return;
+		}
+		if (hit.rigidbody == null)
+			return;
+		print (hit.gameObject.name);
+		Vector3 contactPos = hit.point;
+		Vector3 gravity = new Vector3 (0, -1, 0);
+		/*
+		if ((controller.collisionFlags & CollisionFlags.Below) != 0) {
+			hit.rigidbody.AddForceAtPosition (gravity, contactPos);
+		}
+*/
+		if (controller.collisionFlags == CollisionFlags.Below) {
+			hit.rigidbody.AddForceAtPosition (gravity, contactPos);
+		}
+	}
 }
