@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 Base path: D:/study_resource/toolsAndIDE/unityNew/Editor/Data
 Cmd: initializeCompiler
+=======
+Base path: D:/unity/Editor/Data
+Cmd: getPlatforms
+>>>>>>> c0da3c1510f48810844a25d46a0cd90b9f9f0379

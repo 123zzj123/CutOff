@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Login : MonoBehaviour {
-	string host_url = "http://172.18.156.43:8080";
+	string host_url = "http://120.79.220.178:2222";
 	string version = "/v1";
 
 	public Text username_;
