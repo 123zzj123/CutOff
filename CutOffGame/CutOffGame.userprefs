@@ -1,17 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\PlayManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\tool\Shatter Toolkit\Core\Main\checkFall.cs">
     <Files>
-      <File FileName="Assets\Resources\Scripts\PlayManager.cs" Line="96" Column="30" />
-      <File FileName="Assets\Resources\tool\Shatter Toolkit\Core\Main\addGravity.cs" Line="19" Column="1" />
-      <File FileName="Assets\Resources\tool\Shatter Toolkit\Core\Main\checkFall.cs" Line="13" Column="71" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\Login.cs">
-    <Files>
-      <File FileName="Assets\Resources\Scripts\Login.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\Scripts\Register.cs" Line="9" Column="24" />
->>>>>>> c0da3c1510f48810844a25d46a0cd90b9f9f0379
+      <File FileName="Assets\Resources\tool\Shatter Toolkit\Core\Main\checkFall.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

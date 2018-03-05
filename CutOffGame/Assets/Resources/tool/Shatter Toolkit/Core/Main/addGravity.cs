@@ -16,7 +16,7 @@ public class addGravity : MonoBehaviour {
 
 
 	void OnCollisionStay(Collision collisionInfo) {
-		if (collisionInfo.rigidbody == null)
+		if (collisionInfo.rigidbody == null || collisionInfo.gameObject.name.Equals("boat"))
 			return;
 		print (collisionInfo.rigidbody.name);
 		ContactPoint contact = collisionInfo.contacts [0];

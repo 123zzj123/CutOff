@@ -6,7 +6,7 @@ public class PlayManager : MonoBehaviour {
 
     CharacterController controller;
     Animator animator;
-    float gravity = 30;
+    float gravity = 150;
     float speed = 2;
     Vector2 velocity = Vector2.zero;
     Vector3 DesPos = Vector3.zero;
@@ -98,8 +98,10 @@ public class PlayManager : MonoBehaviour {
 			Debug.Log ("You die!");
 			return;
 		}
-		if (hit.rigidbody == null)
+		if (hit.rigidbody == null || hit.gameObject.name.Equals ("boat")) {
+			Debug.Log ("boat boat");
 			return;
+		}
 		print (hit.gameObject.name);
 		Vector3 contactPos = hit.point;
 		Vector3 gravity = new Vector3 (0, -1, 0);
