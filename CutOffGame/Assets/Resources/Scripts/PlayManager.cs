@@ -98,6 +98,10 @@ public class PlayManager : MonoBehaviour {
 			Debug.Log ("You die!");
 			return;
 		}
+		if (hit.gameObject.tag == "End") {
+			Debug.Log ("You win!");
+			return;
+		}
 		if (hit.rigidbody == null || hit.gameObject.name.Equals ("boat")) {
 			Debug.Log ("boat boat");
 			return;

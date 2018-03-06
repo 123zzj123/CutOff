@@ -51,10 +51,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\BackGroundMusic.cs" />
      <Compile Include="Assets\Resources\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Resources\Scripts\DrawTrail.cs" />
+     <Compile Include="Assets\Resources\Scripts\GameManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Login.cs" />
+     <Compile Include="Assets\Resources\Scripts\MenuControl.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Register.cs" />
+     <Compile Include="Assets\Resources\Scripts\RiverDisappear.cs" />
+     <Compile Include="Assets\Resources\Scripts\SSDirector.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Library\Common\Tools.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Library\Hull\Edge.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Library\Hull\EdgeHit.cs" />
