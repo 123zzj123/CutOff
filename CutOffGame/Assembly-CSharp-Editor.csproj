@@ -53,9 +53,6 @@
   <ItemGroup>
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Library\Editor\ShatterToolEditor.cs" />
      <None Include="Assets\Resources\tool\Shatter Toolkit\Documentation\Readme.txt" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Scheduler\Note.txt" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Shaders\Simple.shader" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Hierarchy\Note.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>D:/study_resource/toolsAndIDE/unityNew/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

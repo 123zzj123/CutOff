@@ -79,10 +79,6 @@
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\ShatterTool.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\TargetUvMapper.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\WorldUvMapper.cs" />
-     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Scripts\MouseGUI.cs" />
-     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Scripts\SceneGUI.cs" />
-     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\Triangulator\OutlineCreator.cs" />
-     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\UvMapping\RotateRigidbody.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Game Objects\HierarchyHandler.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Game Objects\ShatterOnCollision.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Mouse\MouseForce.cs" />
@@ -94,9 +90,6 @@
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Scheduler\Library\SplitTask.cs" />
      <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Scheduler\Main\ShatterScheduler.cs" />
      <None Include="Assets\Resources\tool\Shatter Toolkit\Documentation\Readme.txt" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Scheduler\Note.txt" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Shaders\Simple.shader" />
-     <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Hierarchy\Note.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/study_resource/toolsAndIDE/unityNew/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
