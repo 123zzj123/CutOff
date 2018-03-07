@@ -45,7 +45,7 @@ public class checkFall : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
-		Debug.Log ("a");
+		//Debug.Log ("a");
 		Rigidbody newRigidbody = this.GetComponent<Rigidbody>();
 		if (newRigidbody != null && !newRigidbody.isKinematic)
 		{

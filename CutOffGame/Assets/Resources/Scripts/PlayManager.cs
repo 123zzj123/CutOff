@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayManager : MonoBehaviour {
-
+    public GameObject Win;
+    public GameObject Fail;
+    public GameObject click;
     CharacterController controller;
     Animator animator;
     float gravity = 150;
@@ -21,17 +23,6 @@ public class PlayManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if(Input.touchCount == 1)
-        //{
-        //    if(Input.touches[0].phase == TouchPhase.Began)
-        //    {
-        //        //触屏点击
-        //    }
-        //    else if(Input.touches[0].phase == TouchPhase.Canceled)
-        //    {
-        //        Application.Quit();
-        //    }
-        //}
         velocity.x = 0;
         if (Input.GetMouseButtonDown(0))
         {
@@ -40,7 +31,7 @@ public class PlayManager : MonoBehaviour {
 
 			if (Physics.Raycast(ray, out hit))
 			{
-				Debug.Log(hit.transform.name);
+				//Debug.Log(hit.transform.name);
 				if (hit.transform.name.Equals ("Land")) {
 					;
 				} else {
@@ -48,7 +39,11 @@ public class PlayManager : MonoBehaviour {
 				}
 				//Debug.Log(hit.transform.tag);
 			}
-
+            Vector3 clickPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            StopCoroutine(Dispear());
+            click.gameObject.SetActive(true);
+            click.gameObject.transform.position = clickPos;
+            StartCoroutine(Dispear());
             Vector3 MousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0));
             MousePos.y = this.transform.position.y;
             MousePos.z = this.transform.position.z;
@@ -95,15 +90,18 @@ public class PlayManager : MonoBehaviour {
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if (hit.gameObject.tag == "Trap") {
-			Debug.Log ("You die!");
+            Fail.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
+			//Debug.Log ("You die!");
 			return;
 		}
 		if (hit.gameObject.tag == "End") {
-			Debug.Log ("You win!");
-			return;
+            Win.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
+            return;
 		}
 		if (hit.rigidbody == null || hit.gameObject.name.Equals ("boat")) {
-			Debug.Log ("boat boat");
+			//Debug.Log ("boat boat");
 			return;
 		}
 		print (hit.gameObject.name);
@@ -113,9 +111,15 @@ public class PlayManager : MonoBehaviour {
 		if ((controller.collisionFlags & CollisionFlags.Below) != 0) {
 			hit.rigidbody.AddForceAtPosition (gravity, contactPos);
 		}
-*/
+        */
 		if (controller.collisionFlags == CollisionFlags.Below) {
 			hit.rigidbody.AddForceAtPosition (gravity, contactPos);
 		}
 	}
+
+    public IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(1);
+        click.SetActive(false);
+    }
 }

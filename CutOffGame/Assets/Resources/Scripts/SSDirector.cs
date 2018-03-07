@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SSDirector : System.Object {
     private static SSDirector instance;
-    public static int CurrentMusic;
-    public static float Volume;
+    public static int CurrentMusic = 0;
+    public static float Volume = 1;
     public static string CurrentScene;
     public static string ID;
+    public static int SceneID = 1;
 
     public static SSDirector getInstance()
     {

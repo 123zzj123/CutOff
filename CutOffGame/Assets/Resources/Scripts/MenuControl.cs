@@ -54,6 +54,7 @@ public class MenuControl : MonoBehaviour {
     {
         string SceneName = "Scene" + num;
         SSDirector.CurrentScene = SceneName;
+        SSDirector.SceneID = num;
         SceneManager.LoadScene(SceneName);
     }
 }

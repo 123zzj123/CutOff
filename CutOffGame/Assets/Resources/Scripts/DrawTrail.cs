@@ -19,7 +19,9 @@ public class DrawTrail : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.gameObject != null && hit.collider.gameObject.tag == "Sky") {
 					isCutting = true;
-					line.SetPosition(0,Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,5))); 
+                    StopCoroutine(Dispear());
+                    this.gameObject.GetComponent<LineRenderer>().enabled = true;
+                    line.SetPosition(0,Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,5))); 
 				}
 			}
 		}  
@@ -31,7 +33,13 @@ public class DrawTrail : MonoBehaviour {
 		}  
 		if (Input.GetMouseButtonUp (0)) {
 			isCutting = false;
+            StartCoroutine(Dispear());
 		}
 	}  
 
+    public IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(1);
+        this.gameObject.GetComponent<LineRenderer>().enabled = false;
+    }
 }
