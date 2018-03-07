@@ -96,6 +96,10 @@ public class PlayManager : MonoBehaviour {
 			return;
 		}
 		if (hit.gameObject.tag == "End") {
+            if(SSDirector.ID != "guest")
+            {
+                this.GetComponent<Utilities>().addScore(SSDirector.ID);
+            }
             Win.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
             return;

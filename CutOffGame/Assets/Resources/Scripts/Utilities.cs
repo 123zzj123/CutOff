@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
-[SerializeField]
+[System.Serializable]
 public class User
 {
     public string Username;
@@ -18,7 +19,15 @@ public class User
     }
 }
 
+[System.Serializable]
+public class RankItem
+{
+    public List<User> inforlist;
+}
+
 public class Utilities : MonoBehaviour {
+    public List<Text> Name;
+    public List<Text> Score;
 	string host_url = "http://120.79.220.178:2222";
 	string version = "/v1";
 	string allRank;
@@ -63,12 +72,17 @@ public class Utilities : MonoBehaviour {
 			} else {
 				addScoreResult = getData.text;
 			}
-            Debug.Log(getData.text);
-            User[] Rankdata = new User[10];
-            Rankdata = JsonUtility.FromJson<User[]>(allRank);
-            Debug.Log(Rankdata[0].Score);
-            Debug.Log(Rankdata[1].Score);
-            Debug.Log(Rankdata[9].Score);
+            Debug.Log(allRank);
+            RankItem RankData = JsonUtility.FromJson<RankItem>(allRank);
+            for (int i = 0; i < 10; i++)
+            {
+                if(RankData.inforlist[i].Username == "")
+                {
+                    break;
+                }
+                Name[i].text = "Name: " + RankData.inforlist[i].Username;
+                Score[i].text = "Point: " + RankData.inforlist[i].Score.ToString();
+            }
         }  
 	}
 
