@@ -12,7 +12,7 @@ public class Login : MonoBehaviour {
 	public Text password_;
 
 	public Button login_;
-	public Button register_;
+    public GameObject LoginFail;
 
 	string username_text;
 	string password_text;
@@ -29,7 +29,6 @@ public class Login : MonoBehaviour {
 
 	void InitialButton(){
 		login_.onClick.AddListener (Get);
-		register_.onClick.AddListener (JumpToRegister);
 	}
 
 	void Get() {
@@ -45,16 +44,26 @@ public class Login : MonoBehaviour {
 		WWW getData = new WWW(_url);  
 		yield return getData;  
 		if(getData.error != null)  
-		{  
-			Debug.Log(getData.error);  
-		}  
+		{
+            StartCoroutine(Dispear());
+            LoginFail.SetActive(true);
+        }  
 		else  
-		{  
-			Debug.Log(getData.text);  
-		}  
+		{
+            User _user = User.CreateFromJSON(getData.text.ToString());
+            SSDirector.ID = _user.Username;
+            SceneManager.LoadScene("menu");
+        }  
 	}
 
-	void JumpToRegister() {
-		SceneManager.LoadScene ("Register");
-	}
+    public void VisitToLoadScene()
+    {
+        SceneManager.LoadScene("menu");
+    }
+
+    public IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(2);
+        LoginFail.SetActive(false);
+    }
 }

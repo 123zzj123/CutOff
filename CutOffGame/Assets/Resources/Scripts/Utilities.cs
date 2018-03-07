@@ -5,17 +5,24 @@ using System.Text;
 using System.Runtime.Serialization;
 using UnityEngine;
 
+[SerializeField]
+public class User
+{
+    public string Username;
+    public string Password;
+    public int Score;
+
+    public static User CreateFromJSON(string json)
+    {
+        return JsonUtility.FromJson<User>(json);
+    }
+}
+
 public class Utilities : MonoBehaviour {
 	string host_url = "http://120.79.220.178:2222";
 	string version = "/v1";
 	string allRank;
 	string addScoreResult;
-
-	public class User {
-		public string username;
-		public string password;
-		public int score;
-	}
 
 	void Start () {
 	}
@@ -25,13 +32,12 @@ public class Utilities : MonoBehaviour {
 		//Debug.Log (email_text + password_text);
 	}
 
-	public string getAllRank() {
+	public void getAllRank() {
 		//Debug.Log ("Get Rank");
 		string action = "/rank";
 		string url = host_url + version + action;
 		StartCoroutine(SendGet (url,action));
-		Debug.Log (JsonUtility.FromJson<User[]>(allRank));
-		return allRank;
+		return ;
 	}
 
 	public string addScore(string username) {
@@ -43,7 +49,7 @@ public class Utilities : MonoBehaviour {
 
 	IEnumerator SendGet(string _url,string action)  
 	{  
-		Debug.Log ("Send Rank Request");
+		//Debug.Log ("Send Rank Request");
 		WWW getData = new WWW(_url);  
 		yield return getData;  
 		if(getData.error != null)  
@@ -57,8 +63,13 @@ public class Utilities : MonoBehaviour {
 			} else {
 				addScoreResult = getData.text;
 			}
-			Debug.Log(getData.text);  
-		}  
+            Debug.Log(getData.text);
+            User[] Rankdata = new User[10];
+            Rankdata = JsonUtility.FromJson<User[]>(allRank);
+            Debug.Log(Rankdata[0].Score);
+            Debug.Log(Rankdata[1].Score);
+            Debug.Log(Rankdata[9].Score);
+        }  
 	}
 
 	IEnumerator SendPost(string _url, WWWForm _wForm)  

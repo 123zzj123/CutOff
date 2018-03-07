@@ -10,14 +10,12 @@ public class Register : MonoBehaviour {
 
 	public Text username;
 	public Text password;
-	public Text confirm_password;
 
 	public Button confirm;
-	public Button cancel;
+    public GameObject RegisterFail;
 	// Use this for initialization
 	void Start () {
 		confirm.onClick.AddListener(Post);
-		cancel.onClick.AddListener(JumpToLogin);
 	}
 	
 	// Update is called once per frame
@@ -28,7 +26,6 @@ public class Register : MonoBehaviour {
 	void Post() {
 		string username_text = username.text;
 		string password_text = password.text;
-		string confirm_password_text = confirm_password.text;
 		string action = "/users";
 		string url = host_url + version + action;
 		WWWForm form = new WWWForm();
@@ -43,16 +40,21 @@ public class Register : MonoBehaviour {
         WWW postData = new WWW(_url, _wForm);  
         yield return postData;  
         if (postData.error != null)
-        {  
-            Debug.Log(postData.error);  
+        {
+            StartCoroutine(Dispear());
+            RegisterFail.SetActive(true);  
         }  
         else
-        {  
-            Debug.Log(postData.text);  
+        {
+            User _user = User.CreateFromJSON(postData.text.ToString());
+            SSDirector.ID = _user.Username;
+            SceneManager.LoadScene("menu");
         }
     }
 
-    void JumpToLogin() {
-		SceneManager.LoadScene("Login");
+    public IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(1);
+        RegisterFail.SetActive(false);
     }
 }

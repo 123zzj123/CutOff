@@ -7,7 +7,7 @@ public class SSDirector : System.Object {
     public static int CurrentMusic = 0;
     public static float Volume = 1;
     public static string CurrentScene;
-    public static string ID;
+    public static string ID = "guest";
     public static int SceneID = 1;
 
     public static SSDirector getInstance()

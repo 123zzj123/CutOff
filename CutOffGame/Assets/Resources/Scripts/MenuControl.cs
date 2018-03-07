@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour {
@@ -8,14 +9,15 @@ public class MenuControl : MonoBehaviour {
     public GameObject HelpPanel;
     public GameObject SettingPanel;
     public GameObject RankPanel;
+    public Text User;
 	// Use this for initialization
 	void Start () {
-		
+        User.text = "UserName: " + SSDirector.ID;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     public void showSceneChoose()
