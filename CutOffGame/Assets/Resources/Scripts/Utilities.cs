@@ -80,8 +80,8 @@ public class Utilities : MonoBehaviour {
                 {
                     break;
                 }
-                Name[i].text = "Name: " + RankData.inforlist[i].Username;
-                Score[i].text = "Point: " + RankData.inforlist[i].Score.ToString();
+                Name[i].text = RankData.inforlist[i].Username;
+                Score[i].text = RankData.inforlist[i].Score.ToString();
             }
         }  
 	}
