@@ -42,5 +42,6 @@ public class GameManager : MonoBehaviour {
         SSDirector.SceneID %= 4;
         string SceneName = "Scene" + SSDirector.SceneID;
         SSDirector.CurrentScene = SceneName;
+		SceneManager.LoadScene (SceneName);
     }
 }
