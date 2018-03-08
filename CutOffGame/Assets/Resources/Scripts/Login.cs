@@ -34,6 +34,9 @@ public class Login : MonoBehaviour {
 	void Get() {
 		username_text = username_.text;
 		password_text = password_.text;
+		if (username_text == "" || password_text == "") {
+			return;
+		}
 		string action = "/auth";
 		string url = host_url + version + action + "?username="+username_text+"&password="+password_text;
 		StartCoroutine (SendGet (url));

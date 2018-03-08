@@ -26,6 +26,9 @@ public class Register : MonoBehaviour {
 	void Post() {
 		string username_text = username.text;
 		string password_text = password.text;
+		if (username_text == "" || password_text == "") {
+			return;
+		}
 		string action = "/users";
 		string url = host_url + version + action;
 		WWWForm form = new WWWForm();
