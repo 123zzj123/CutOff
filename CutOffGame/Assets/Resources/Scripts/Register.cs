@@ -13,6 +13,7 @@ public class Register : MonoBehaviour {
 
 	public Button confirm;
     public GameObject RegisterFail;
+	public GameObject NullFail;
 	// Use this for initialization
 	void Start () {
 		confirm.onClick.AddListener(Post);
@@ -27,7 +28,8 @@ public class Register : MonoBehaviour {
 		string username_text = username.text;
 		string password_text = password.text;
 		if (username_text == "" || password_text == "") {
-			return;
+			NullFail.SetActive (true);
+			StartCoroutine (NullDispear ());
 		}
 		string action = "/users";
 		string url = host_url + version + action;
@@ -60,4 +62,10 @@ public class Register : MonoBehaviour {
         yield return new WaitForSeconds(1);
         RegisterFail.SetActive(false);
     }
+
+	public IEnumerator NullDispear()
+	{
+		yield return new WaitForSeconds(2);
+		NullFail.SetActive(false);
+	}
 }

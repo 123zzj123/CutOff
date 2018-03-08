@@ -13,6 +13,7 @@ public class Login : MonoBehaviour {
 
 	public Button login_;
     public GameObject LoginFail;
+	public GameObject NullFail;
 
 	string username_text;
 	string password_text;
@@ -35,6 +36,8 @@ public class Login : MonoBehaviour {
 		username_text = username_.text;
 		password_text = password_.text;
 		if (username_text == "" || password_text == "") {
+			NullFail.SetActive (true);
+			StartCoroutine (NullDispear ());
 			return;
 		}
 		string action = "/auth";
@@ -69,4 +72,10 @@ public class Login : MonoBehaviour {
         yield return new WaitForSeconds(2);
         LoginFail.SetActive(false);
     }
+
+	public IEnumerator NullDispear()
+	{
+		yield return new WaitForSeconds(2);
+		NullFail.SetActive(false);
+	}
 }
