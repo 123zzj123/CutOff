@@ -9,6 +9,7 @@ public class MenuControl : MonoBehaviour {
     public GameObject HelpPanel;
     public GameObject SettingPanel;
     public GameObject RankPanel;
+    public GameObject More;
     public Text User;
 	// Use this for initialization
 	void Start () {
@@ -58,5 +59,17 @@ public class MenuControl : MonoBehaviour {
         SSDirector.CurrentScene = SceneName;
         SSDirector.SceneID = num;
         SceneManager.LoadScene(SceneName);
+    }
+
+    public void PlayMore()
+    {
+        More.SetActive(true);
+        StartCoroutine(Dispear());
+    }
+
+    public IEnumerator Dispear()
+    {
+        yield return new WaitForSeconds(2);
+        More.SetActive(false);
     }
 }

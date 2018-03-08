@@ -112,6 +112,8 @@
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\WorldUvMapper.cs" />
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\addGravity.cs" />
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Core\Main\checkFall.cs" />
+    <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Scripts\MouseGUI.cs" />
+    <Compile Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Scripts\SceneGUI.cs" />
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Game Objects\HierarchyHandler.cs" />
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Game Objects\ShatterOnCollision.cs" />
     <Compile Include="Assets\Resources\tool\Shatter Toolkit\Helpers\Mouse\MouseForce.cs" />
@@ -125,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\tool\Shatter Toolkit\Documentation\Readme.txt" />
+    <None Include="Assets\Resources\tool\Shatter Toolkit\Examples\Shared Assets\Shaders\Simple.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
